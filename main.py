@@ -2,6 +2,9 @@ import json
 import numpy
 import calculations
 
+# importing our plots
+from plots import plotHistogram
+
 class simplifiedBusiness:
 	# Construct a simplifiedBusiness (obj) from a business (dict)
 	def __init__(self, business):
@@ -34,7 +37,7 @@ def getTier(number, cutoffs):
 SAMPLE_SIZE = 1000
 CUTOFFS = [100, 500, 800]
 
-file = open('data.json')
+file = open('data.json', encoding='utf-8')
 businesses = json.load(file)['businesses']
 
 tiers = [[], [], [], []]
@@ -50,3 +53,6 @@ for tier in tiers:
 	average, margin, lower, upper = calculations.getCI([sample.stars for sample in tier])
 	sigma = numpy.std([sample.stars for sample in tier])
 	print("{}, {}+-{}=({},{})".format(sigma, average, margin, lower, upper))
+	# plot a histogram for each tier
+	plotHistogram(tier, average, sigma)
+
