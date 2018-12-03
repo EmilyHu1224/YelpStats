@@ -5,4 +5,3 @@ def sortSamplesIntoTiers(samples, cutoffs):
 		tiers[getTier(sample.reviewCount, cutoffs)].append(sample)
 
 	return tiers
-
