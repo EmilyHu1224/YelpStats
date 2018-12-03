@@ -2,6 +2,7 @@ import json
 import numpy
 import random
 import calculations
+import plots
 
 file = open('data.json')
 businesses = json.load(file)['businesses']
@@ -48,6 +49,9 @@ def part1():
 	stars = [sample.stars for sample in samples]
 
 	print("{}, {}, {}, {}".format(numpy.percentile(reviewCounts, 25), numpy.percentile(reviewCounts, 50), numpy.percentile(reviewCounts, 75), numpy.percentile(reviewCounts, 100)))
+	plots.scatterplot(stars, reviewCounts, "Ratings", "Review Counts", "Review Counts vs. Ratings")
+	plots.boxplot(stars, "Ratings", "Ratings")
+	plots.boxplot(reviewCounts, "Review Counts", "Review Counts")
 
 def part2():
 	# Get 1,000 random businesses for each bucket (without replacement)
@@ -68,4 +72,4 @@ def part2():
 		sigma = numpy.std([sample.stars for sample in tier])
 		print("{}, {}+-{}=({},{})".format(sigma, average, margin, lower, upper))
 
-part2()
+part1()
