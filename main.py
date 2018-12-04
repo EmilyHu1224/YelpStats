@@ -4,8 +4,11 @@ import random
 import calculations
 import plots
 
-file = open('data.json')
+file = open('data.json', encoding='utf-8')
 businesses = json.load(file)['businesses']
+
+# importing our plots
+from plots import plotHistogram
 
 class simplifiedBusiness:
 	# Construct a simplifiedBusiness (obj) from a business (dict)
@@ -71,5 +74,9 @@ def part2():
 		average, margin, lower, upper = calculations.getCI([sample.stars for sample in tier])
 		sigma = numpy.std([sample.stars for sample in tier])
 		print("{}, {}+-{}=({},{})".format(sigma, average, margin, lower, upper))
+		# plot a histogram for each tier
+		plotHistogram(tier, average, sigma)
 
 part1()
+part2()
+
